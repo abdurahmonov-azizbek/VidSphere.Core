@@ -14,5 +14,8 @@ namespace VidSphere.Core.Api.Brokers.Storages
 
         public async ValueTask<VideoMetadata> InsertVideoMetadataAsync(VideoMetadata videoMetadata) =>
             await InsertAsync<VideoMetadata>(videoMetadata);
+
+        public IQueryable<VideoMetadata> SelectAllVideoMetadatas() =>
+            SelectAll<VideoMetadata>();
     }
 }
