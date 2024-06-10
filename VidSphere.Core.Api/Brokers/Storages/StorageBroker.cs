@@ -26,6 +26,13 @@ namespace VidSphere.Core.Api.Brokers.Storages
             return @object;
         }
 
+        public async ValueTask<T> SelectAsync<T>(params object[] objectIds) where T : class
+        {
+            var broker = new StorageBroker(this.configuration);
+
+            return await broker.FindAsync<T>(objectIds);
+        }
+
         public IQueryable<T> SelectAll<T>() where T : class
         {
             var broker = new StorageBroker(this.configuration);
