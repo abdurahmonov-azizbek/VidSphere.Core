@@ -11,5 +11,8 @@ namespace VidSphere.Core.Api.Brokers.Storages
     public partial class StorageBroker
     {
         public DbSet<VideoMetadata> VideoMetadatas { get; set; }
+
+        public async ValueTask<VideoMetadata> InsertVideoMetadataAsync(VideoMetadata videoMetadata) =>
+            await InsertAsync<VideoMetadata>(videoMetadata);
     }
 }
