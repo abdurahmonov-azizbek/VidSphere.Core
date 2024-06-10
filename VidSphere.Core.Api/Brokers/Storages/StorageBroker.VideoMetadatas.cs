@@ -23,5 +23,8 @@ namespace VidSphere.Core.Api.Brokers.Storages
 
         public async ValueTask<VideoMetadata> UpdateVideoMetadataAsync(VideoMetadata videoMetadata) =>
             await UpdateAsync<VideoMetadata>(videoMetadata);
+
+        public async ValueTask<VideoMetadata> DeleteVideoMetadataAsync(VideoMetadata videoMetadata) =>
+            await DeleteAsync<VideoMetadata>(videoMetadata);
     }
 }

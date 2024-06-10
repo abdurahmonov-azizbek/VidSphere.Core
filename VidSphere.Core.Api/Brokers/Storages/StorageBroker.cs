@@ -4,6 +4,7 @@
 // --------------------------------------------------------
 
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.Xml;
 
 namespace VidSphere.Core.Api.Brokers.Storages
 {
@@ -44,6 +45,15 @@ namespace VidSphere.Core.Api.Brokers.Storages
         {
             var broker = new StorageBroker(this.configuration);
             broker.Entry(@object).State = EntityState.Modified;
+            await broker.SaveChangesAsync();
+
+            return @object;
+        }
+
+        public async ValueTask<T> DeleteAsync<T>(T @object)
+        {
+            var broker = new StorageBroker(this.configuration);
+            broker.Entry(@object).State = EntityState.Deleted;
             await broker.SaveChangesAsync();
 
             return @object;
