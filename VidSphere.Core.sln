@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidSphere.Core.Api", "VidSphere.Core.Api\VidSphere.Core.Api.csproj", "{42F8E52B-80F1-456B-BF9F-3416E5D7E895}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VidSphere.Core.Api", "VidSphere.Core.Api\VidSphere.Core.Api.csproj", "{42F8E52B-80F1-456B-BF9F-3416E5D7E895}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidSphere.Core.Api.Tests", "VidSphere.Core.Api.Tests\VidSphere.Core.Api.Tests.csproj", "{C4A9C7AB-CE4B-4427-8AC5-B2811D4243A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{42F8E52B-80F1-456B-BF9F-3416E5D7E895}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42F8E52B-80F1-456B-BF9F-3416E5D7E895}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42F8E52B-80F1-456B-BF9F-3416E5D7E895}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4A9C7AB-CE4B-4427-8AC5-B2811D4243A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4A9C7AB-CE4B-4427-8AC5-B2811D4243A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4A9C7AB-CE4B-4427-8AC5-B2811D4243A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4A9C7AB-CE4B-4427-8AC5-B2811D4243A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
