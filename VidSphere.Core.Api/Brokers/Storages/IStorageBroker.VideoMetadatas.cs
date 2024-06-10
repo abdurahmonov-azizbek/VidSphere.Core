@@ -3,8 +3,12 @@
 // Developed by VidSphere Team
 // --------------------------------------------------------
 
+using VidSphere.Core.Api.Models.VideoMetadatas;
+
 namespace VidSphere.Core.Api.Brokers.Storages
 {
     public partial interface IStorageBroker
-    { }
+    {
+        ValueTask<VideoMetadata> InsertVideoMetadataAsync(VideoMetadata videoMetadata);
+    }
 }
