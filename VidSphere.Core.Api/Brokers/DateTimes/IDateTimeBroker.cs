@@ -3,8 +3,12 @@
 // Developed by VidSphere Team
 // --------------------------------------------------------
 
-namespace VidSphere.Core.Api.Brokers.Storages
+using System;
+
+namespace VidSphere.Core.Api.Brokers.DateTimes
 {
-    public partial interface IStorageBroker
-    { }
+    public interface IDateTimebroker
+    {
+        DateTimeOffset GetCurrentDateTimeOffset();
+    }
 }

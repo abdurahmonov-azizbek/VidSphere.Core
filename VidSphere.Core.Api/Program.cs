@@ -1,6 +1,6 @@
 // --------------------------------------------------------
 // Copyright (c) Coalition of Good-Hearted Engineers
-// Developed by CashOverflow Team
+// Developed by VidSphere Team
 // --------------------------------------------------------
 
 var builder = WebApplication.CreateBuilder(args);
