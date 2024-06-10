@@ -18,7 +18,10 @@ namespace VidSphere.Core.Api.Brokers.Storages
         public IQueryable<VideoMetadata> SelectAllVideoMetadatas() =>
             SelectAll<VideoMetadata>();
 
-        public ValueTask<VideoMetadata> SelectVideoMetadataByIdAsync(Guid videoMetadataId) =>
-            SelectAsync<VideoMetadata>(videoMetadataId);
+        public async ValueTask<VideoMetadata> SelectVideoMetadataByIdAsync(Guid videoMetadataId) =>
+            await SelectAsync<VideoMetadata>(videoMetadataId);
+
+        public async ValueTask<VideoMetadata> UpdateVideoMetadataAsync(VideoMetadata videoMetadata) =>
+            await UpdateAsync<VideoMetadata>(videoMetadata);
     }
 }
