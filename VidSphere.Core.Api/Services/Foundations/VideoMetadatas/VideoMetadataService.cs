@@ -13,20 +13,11 @@ namespace VidSphere.Core.Api
     public class VideoMetadataService : IVideoMetadataService
     {
         private readonly IStorageBroker storageBroker;
-        private readonly IDateTimebroker dateTimebroker;
-        private readonly ILoggingBroker loggingBroker;
 
-        public VideoMetadataService(
-            IStorageBroker storageBroker,
-            IDateTimebroker dateTimebroker,
-            ILoggingBroker loggingBroker)
-        {
+        public VideoMetadataService(IStorageBroker storageBroker) =>
             this.storageBroker = storageBroker;
-            this.dateTimebroker = dateTimebroker;
-            this.loggingBroker = loggingBroker;
-        }
 
-        public ValueTask<VideoMetadata> AddVideoMetadataAsync(VideoMetadata videoMetadata) =>
-            throw new Exception();
+        public async ValueTask<VideoMetadata> AddVideoMetadataAsync(VideoMetadata videoMetadata) =>
+            await this.storageBroker.InsertVideoMetadataAsync(videoMetadata);
     }
 }

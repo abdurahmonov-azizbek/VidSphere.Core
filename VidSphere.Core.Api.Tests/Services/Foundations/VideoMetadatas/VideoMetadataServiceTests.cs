@@ -15,20 +15,14 @@ namespace VidSphere.Core.Api.Tests.Services.Foundations.VideoMetadatas
     public partial class VideoMetadataServiceTests
     {
         private readonly Mock<IStorageBroker> storageBrokerMock;
-        private readonly Mock<IDateTimebroker> datetimeBrokerMock;
-        private readonly Mock<ILoggingBroker> loggingBrokerMock;
         private readonly IVideoMetadataService videoMetadataService;
 
         public VideoMetadataServiceTests()
         {
             this.storageBrokerMock = new Mock<IStorageBroker>();
-            this.datetimeBrokerMock = new Mock<IDateTimebroker>();
-            this.loggingBrokerMock = new Mock<ILoggingBroker>();
 
             this.videoMetadataService = new VideoMetadataService(
-                storageBroker: this.storageBrokerMock.Object,
-                dateTimebroker: this.datetimeBrokerMock.Object,
-                loggingBroker: this.loggingBrokerMock.Object);
+                storageBroker: this.storageBrokerMock.Object);
         }
 
         private static DateTimeOffset GetRandomDateTimeOffset() =>

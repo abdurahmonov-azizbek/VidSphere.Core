@@ -16,14 +16,10 @@ namespace VidSphere.Core.Api.Tests.Services.Foundations.VideoMetadatas
         public async Task ShouldAddVideoMetadataAsync()
         {
             //given
-            DateTimeOffset randomDate = GetRandomDateTimeOffset();
-            VideoMetadata randomVideoMetadata = CreateRandomVideoMetadata(randomDate);
+            VideoMetadata randomVideoMetadata = CreateRandomVideoMetadata();
             VideoMetadata inputVideoMetadata = randomVideoMetadata;
             VideoMetadata persistedVideoMetadata = inputVideoMetadata;
             VideoMetadata expectedVideoMetadata = persistedVideoMetadata.DeepClone();
-
-            this.datetimeBrokerMock.Setup(broker =>
-                broker.GetCurrentDateTimeOffset()).Returns(randomDate);
 
             this.storageBrokerMock.Setup(broker =>
                 broker.InsertVideoMetadataAsync(inputVideoMetadata)).ReturnsAsync(persistedVideoMetadata);
@@ -35,15 +31,10 @@ namespace VidSphere.Core.Api.Tests.Services.Foundations.VideoMetadatas
             //then
             actualVideoMetadata.Should().BeEquivalentTo(expectedVideoMetadata);
 
-            this.datetimeBrokerMock.Verify(broker =>
-                broker.GetCurrentDateTimeOffset(), Times.Once);
-
             this.storageBrokerMock.Verify(broker =>
                 broker.InsertVideoMetadataAsync(inputVideoMetadata), Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
-            this.datetimeBrokerMock.VerifyNoOtherCalls();
-            this.loggingBrokerMock.VerifyNoOtherCalls();
         }
     }
 }
