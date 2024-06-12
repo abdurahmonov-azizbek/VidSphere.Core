@@ -91,6 +91,15 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
 
                 throw CreateAndLogCriticalDependencyException(failedVideoMetadataStorageException);
             }
+            catch (Exception exception)
+            {
+                FailedVideoMetadataServiceException failedVideoMetadataServiceException =
+                    new FailedVideoMetadataServiceException(
+                        "Unexpected error of Video Metadata occured.",
+                            exception);
+
+                throw CreateAndLogVideoMetadataDependencyServiceErrorOccurs(failedVideoMetadataServiceException);
+            }
         }
 
         private VideoMetadataDependencyServiceException CreateAndLogVideoMetadataDependencyServiceErrorOccurs(Xeption exception)
