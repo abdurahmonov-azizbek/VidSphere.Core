@@ -18,6 +18,10 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
             {
                 throw CreateAndLogValidationException(nullVideoMetadataException);
             }
+            catch(InvalidVideoMetadataException invalidVideoMetadataException)
+            {
+                throw CreateAndLogValidationException(invalidVideoMetadataException);
+            }
         }
 
         private VideoMetadataValidationException CreateAndLogValidationException(Xeption exception)
