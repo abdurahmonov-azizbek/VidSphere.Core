@@ -1,10 +1,10 @@
 ﻿using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+// --------------------------------------------------------
+// Copyright (c) Coalition of Good-Hearted Engineers
+// Developed by VidSphere Team
+// --------------------------------------------------------
+
 using VidSphere.Core.Api.Models.VideoMetadatas;
 
 namespace VidSphere.Core.Api.Tests.Services.Foundations.VideoMetadatas
