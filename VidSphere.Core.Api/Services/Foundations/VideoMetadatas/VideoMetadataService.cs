@@ -5,7 +5,7 @@ using VidSphere.Core.Api.Models.VideoMetadatas;
 
 namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
 {
-    public class VideoMetadataService : IVideoMetadataService
+    public partial class VideoMetadataService : IVideoMetadataService
     {
         private readonly IStorageBroker storageBroker;
         private readonly ILoggingBroker loggingBroker;
@@ -21,9 +21,11 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
             this.dateTimeBroker = dateTimeBroker;
         }
 
-        public ValueTask<VideoMetadata> AddVideoMetadataAsync(VideoMetadata videoMetadata)
-        {
-            throw new NotImplementedException();
-        }
+        public ValueTask<VideoMetadata> AddVideoMetadataAsync(VideoMetadata videoMetadata) =>
+            TryCatch(async () =>
+            {
+                ValidateVideoMetadataOnAdd(videoMetadata);
+                return await this.storageBroker.InsertVideoMetadataAsync(videoMetadata);
+            });
     }
 }
