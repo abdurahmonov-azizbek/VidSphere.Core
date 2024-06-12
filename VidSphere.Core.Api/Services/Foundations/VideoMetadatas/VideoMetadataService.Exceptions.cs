@@ -59,6 +59,27 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
 
                 throw CreateAndLogDependencyException(failedVideoMetadataStorage);
             }
+            catch (Exception exception)
+            {
+                var failedVideoMetadataServiceException =
+                    new FailedVideoMetadataServiceException(
+                        "Unexpected error of Video Metadata occured",
+                            exception);
+
+                throw CreateAndLogVideoMetadataDependencyServiceErrorOccurs(failedVideoMetadataServiceException);
+            }
+        }
+
+        private VideoMetadataDependencyServiceException CreateAndLogVideoMetadataDependencyServiceErrorOccurs(Xeption exception)
+        {
+            var videoMetadataDependencyServiceException =
+                new VideoMetadataDependencyServiceException(
+                    "Unexpected service error occured. Contact support.",
+                        exception);
+
+            this.loggingBroker.LogError(videoMetadataDependencyServiceException);
+
+            return videoMetadataDependencyServiceException;
         }
 
         private VideoMetadataDependencyException CreateAndLogDependencyException(Xeption exception)
