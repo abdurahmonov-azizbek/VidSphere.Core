@@ -32,5 +32,10 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
                 ValidateVideoMetadataOnAdd(videoMetadata);
                 return await this.storageBroker.InsertVideoMetadataAsync(videoMetadata);
             });
+
+        public IQueryable<VideoMetadata> RetrieveAllVideoMetadatas()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
