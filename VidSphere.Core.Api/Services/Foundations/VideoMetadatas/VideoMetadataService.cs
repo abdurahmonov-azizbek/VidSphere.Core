@@ -34,6 +34,9 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
             });
 
         public IQueryable<VideoMetadata> RetrieveAllVideoMetadatas() =>
-            this.storageBroker.SelectAllVideoMetadatas();
+            TryCatch(() =>
+            {
+                return this.storageBroker.SelectAllVideoMetadatas();
+            });
     }
 }
