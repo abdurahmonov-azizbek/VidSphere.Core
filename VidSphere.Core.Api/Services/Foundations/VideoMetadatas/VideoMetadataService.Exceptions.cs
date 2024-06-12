@@ -32,6 +32,7 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
 
                 throw CreateAndLogCriticalDependencyException(failedVideoMetadataStorageException);
             }
+
         }
 
         private VideoMetadataDependencyException CreateAndLogCriticalDependencyException(Xeption exception)
