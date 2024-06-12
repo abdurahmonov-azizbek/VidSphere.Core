@@ -1,4 +1,6 @@
 ﻿using VidSphere.Core.Api.Models.VideoMetadatas;
+using VidSphere.Core.Api.Models.VideoMetadatas.Exceptions;
+using Xeptions;
 
 namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
 {
@@ -8,7 +10,25 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
 
         private async ValueTask<VideoMetadata> TryCatch(ReturningVideoMetadataFunction returningVideoMetadataFunction)
         {
-            return await returningVideoMetadataFunction();
+            try
+            {
+                return await returningVideoMetadataFunction();
+            }
+            catch (NullVideoMetadataException nullVideoMetadataException)
+            {
+                throw CreateAndLogValidationException(nullVideoMetadataException);
+            }
+        }
+
+        private VideoMetadataValidationException CreateAndLogValidationException(Xeption exception)
+        {
+            var videoMetadataValidationException = new VideoMetadataValidationException(
+                "Video Metadata Validation Exception occured, fix the errors and try again.",
+                    exception);
+
+            this.loggingBroker.LogError(videoMetadataValidationException);
+
+            return videoMetadataValidationException;
         }
     }
 }
