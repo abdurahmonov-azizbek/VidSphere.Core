@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace VidSphere.Core.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateVideoMetadatasTable : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,13 +15,13 @@ namespace VidSphere.Core.Api.Migrations
                 name: "VideoMetadatas",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    BlobPath = table.Column<string>(type: "text", nullable: false),
-                    Thubnail = table.Column<string>(type: "text", nullable: false),
-                    CreatedDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    UpdatedDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BlobPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Thubnail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UpdatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
                 constraints: table =>
                 {

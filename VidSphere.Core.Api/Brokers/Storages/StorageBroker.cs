@@ -4,11 +4,12 @@
 // --------------------------------------------------------
 
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography.Xml;
+using STX.EFxceptions.SqlServer;
+using System;
 
 namespace VidSphere.Core.Api.Brokers.Storages
 {
-    public partial class StorageBroker : DbContext, IStorageBroker
+    public partial class StorageBroker : EFxceptionsContext, IStorageBroker
     {
         private readonly IConfiguration configuration;
 
@@ -58,12 +59,17 @@ namespace VidSphere.Core.Api.Brokers.Storages
 
             return @object;
         }
-
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = this.configuration.GetConnectionString(name: "DefaultConnection");
+            string connectionString =
+                configuration.GetConnectionString(name: "DefaultConnection");
 
-            optionsBuilder.UseNpgsql(connectionString);
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            optionsBuilder.UseSqlServer(connectionString);
         }
+
+        public override void Dispose()
+        { }
     }
 }
