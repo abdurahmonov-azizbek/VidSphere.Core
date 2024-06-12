@@ -10,5 +10,6 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
     public interface IVideoMetadataService
     {
         ValueTask<VideoMetadata> AddVideoMetadataAsync(VideoMetadata videoMetadata);
+        IQueryable<VideoMetadata> RetrieveAllVideoMetadatas();
     }
 }
