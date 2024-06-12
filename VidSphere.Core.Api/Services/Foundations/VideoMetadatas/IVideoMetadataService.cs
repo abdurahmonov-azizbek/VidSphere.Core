@@ -1,4 +1,9 @@
-﻿using VidSphere.Core.Api.Models.VideoMetadatas;
+﻿// --------------------------------------------------------
+// Copyright (c) Coalition of Good-Hearted Engineers
+// Developed by VidSphere Team
+// --------------------------------------------------------
+
+using VidSphere.Core.Api.Models.VideoMetadatas;
 
 namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
 {

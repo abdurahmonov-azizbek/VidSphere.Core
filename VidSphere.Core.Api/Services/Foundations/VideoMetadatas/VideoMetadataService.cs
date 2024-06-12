@@ -1,4 +1,9 @@
-﻿using VidSphere.Core.Api.Brokers.DateTimes;
+﻿// --------------------------------------------------------
+// Copyright (c) Coalition of Good-Hearted Engineers
+// Developed by VidSphere Team
+// --------------------------------------------------------
+
+using VidSphere.Core.Api.Brokers.DateTimes;
 using VidSphere.Core.Api.Brokers.Loggings;
 using VidSphere.Core.Api.Brokers.Storages;
 using VidSphere.Core.Api.Models.VideoMetadatas;

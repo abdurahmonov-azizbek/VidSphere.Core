@@ -1,4 +1,9 @@
-﻿using Microsoft.Data.SqlClient;
+﻿// --------------------------------------------------------
+// Copyright (c) Coalition of Good-Hearted Engineers
+// Developed by VidSphere Team
+// --------------------------------------------------------
+
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using STX.EFxceptions.Abstractions.Models.Exceptions;
 using VidSphere.Core.Api.Models.VideoMetadatas;

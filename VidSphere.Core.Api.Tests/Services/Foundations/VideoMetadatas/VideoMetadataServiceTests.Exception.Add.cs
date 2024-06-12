@@ -1,13 +1,13 @@
-﻿using FluentAssertions;
+﻿// --------------------------------------------------------
+// Copyright (c) Coalition of Good-Hearted Engineers
+// Developed by VidSphere Team
+// --------------------------------------------------------
+
+using FluentAssertions;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using STX.EFxceptions.Abstractions.Models.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VidSphere.Core.Api.Models.VideoMetadatas;
 using VidSphere.Core.Api.Models.VideoMetadatas.Exceptions;
 

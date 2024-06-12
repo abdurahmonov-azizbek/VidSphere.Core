@@ -1,4 +1,9 @@
-﻿using Xeptions;
+﻿// --------------------------------------------------------
+// Copyright (c) Coalition of Good-Hearted Engineers
+// Developed by VidSphere Team
+// --------------------------------------------------------
+
+using Xeptions;
 
 namespace VidSphere.Core.Api.Models.VideoMetadatas.Exceptions
 {

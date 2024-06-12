@@ -1,4 +1,9 @@
-﻿using FluentAssertions;
+﻿// --------------------------------------------------------
+// Copyright (c) Coalition of Good-Hearted Engineers
+// Developed by VidSphere Team
+// --------------------------------------------------------
+
+using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
 using VidSphere.Core.Api.Models.VideoMetadatas;
