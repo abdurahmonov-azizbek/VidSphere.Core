@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using STX.EFxceptions.Abstractions.Models.Exceptions;
 using VidSphere.Core.Api.Models.VideoMetadatas;
 using VidSphere.Core.Api.Models.VideoMetadatas.Exceptions;
@@ -43,6 +44,8 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
                 throw CreateAndLogDuplicateKeyException(alreadyExistVideoMetadataException);
             }
         }
+
+
 
         private VideoMetadataDependencyValidationException CreateAndLogDuplicateKeyException(Xeption exception)
         {
