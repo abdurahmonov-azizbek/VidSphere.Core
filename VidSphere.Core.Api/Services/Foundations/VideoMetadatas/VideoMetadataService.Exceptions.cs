@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using STX.EFxceptions.Abstractions.Models.Exceptions;
 using VidSphere.Core.Api.Models.VideoMetadatas;
 using VidSphere.Core.Api.Models.VideoMetadatas.Exceptions;
 using Xeptions;
@@ -32,7 +33,26 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
 
                 throw CreateAndLogCriticalDependencyException(failedVideoMetadataStorageException);
             }
+            catch (DuplicateKeyException duplicateKeyException)
+            {
+                var alreadyExistVideoMetadataException
+                    = new AlreadyExistsVideoMetadataException(
+                        "Video Metadata already exist, please try again.",
+                            duplicateKeyException);
 
+                throw CreateAndLogDuplicateKeyException(alreadyExistVideoMetadataException);
+            }
+        }
+
+        private VideoMetadataDependencyValidationException CreateAndLogDuplicateKeyException(Xeption exception)
+        {
+            var videoMetadataDependencyValidationException =
+                new VideoMetadataDependencyValidationException(
+                    "Video Metadata dependency error occured. Fix errors and try again.",
+                        exception);
+            this.loggingBroker.LogError(videoMetadataDependencyValidationException);
+
+            return videoMetadataDependencyValidationException;
         }
 
         private VideoMetadataDependencyException CreateAndLogCriticalDependencyException(Xeption exception)
