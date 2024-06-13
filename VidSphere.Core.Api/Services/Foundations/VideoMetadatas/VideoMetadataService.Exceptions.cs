@@ -27,9 +27,13 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
             {
                 throw CreateAndLogValidationException(nullVideoMetadataException);
             }
-            catch(InvalidVideoMetadataException invalidVideoMetadataException)
+            catch (InvalidVideoMetadataException invalidVideoMetadataException)
             {
                 throw CreateAndLogValidationException(invalidVideoMetadataException);
+            }
+            catch (NotFoundVideoMetadataException notFoundVideoMetadataException)
+            {
+                throw CreateAndLogValidationException(notFoundVideoMetadataException);
             }
             catch (SqlException sqlException)
             {

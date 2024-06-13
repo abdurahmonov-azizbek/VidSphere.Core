@@ -47,7 +47,7 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
         {
             if(maybeVideoMetadata is null)
             {
-                throw new NotFoundVideoMetadataException($"Couldn't find video metadata with id: {videoMetadataId}.");
+                throw new NotFoundVideoMetadataException($"Couldn't find job with id: {videoMetadataId}.");
             }
         }
 
