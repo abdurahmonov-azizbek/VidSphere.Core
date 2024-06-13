@@ -55,5 +55,46 @@ namespace VidSphere.Core.Api.Tests.Services.Foundations.VideoMetadatas
             this.dateTimeBrokerMock.VerifyNoOtherCalls();
             this.loggingBrokerMock.VerifyNoOtherCalls();
         }
+
+        [Fact]
+        public async Task ShouldThrowServiceExceptionOnRetrieveByIdAsyncIfServiceErrorOccursAndLogItAsync()
+        {
+            //given
+            Guid someId = Guid.NewGuid();
+            var serviceException = new Exception();
+
+            var failedVideoMetadataServiceException = new FailedVideoMetadataServiceException(
+                message: "Unexpected error of Video Metadata occured",
+                innerException: serviceException);
+
+            var expectedVideoMetadataServiceException = new VideoMetadataDependencyServiceException(
+                message: "Unexpected service error occured. Contact support.",
+                innerException: failedVideoMetadataServiceException);
+
+            this.storageBrokerMock.Setup(broker =>
+                broker.SelectVideoMetadataByIdAsync(It.IsAny<Guid>()))
+                    .ThrowsAsync(serviceException);
+
+            //when
+            ValueTask<VideoMetadata> retrieveVideoMetadataByIdTask =
+                this.videoMetadataService.RetrieveVideoMetadataByIdAsync(someId);
+
+            var actualVideoMetadataServiceException =
+                await Assert.ThrowsAsync<VideoMetadataDependencyServiceException>(retrieveVideoMetadataByIdTask.AsTask);
+
+            //then
+            actualVideoMetadataServiceException.Should().BeEquivalentTo(expectedVideoMetadataServiceException);
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.SelectVideoMetadataByIdAsync(It.IsAny<Guid>()), Times.Once);
+
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs(
+                    expectedVideoMetadataServiceException))), Times.Once);
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
     }
 }
