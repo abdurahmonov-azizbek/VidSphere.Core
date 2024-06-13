@@ -3,6 +3,8 @@
 // Developed by VidSphere Team
 // --------------------------------------------------------
 
+using System.Data;
+using System.Reflection.Metadata;
 using VidSphere.Core.Api.Models.VideoMetadatas;
 using VidSphere.Core.Api.Models.VideoMetadatas.Exceptions;
 
@@ -35,6 +37,17 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
             if (videoMetadata is null)
             {
                 throw new NullVideoMetadataException("Video Metadata is null.");
+            }
+        }
+
+        private void ValidateVideoMetadataId(Guid videoMetadataId) =>
+            Validate((Rule: IsInvalid(videoMetadataId), Parameter: nameof(VideoMetadata.Id)));
+
+        private void ValidateStorageVideoMetadataExists(VideoMetadata maybeVideoMetadata, Guid videoMetadataId)
+        {
+            if(maybeVideoMetadata is null)
+            {
+                throw new NotFoundVideoMetadataException($"Couldn't find video metadata with id: {videoMetadataId}.");
             }
         }
 
