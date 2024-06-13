@@ -22,7 +22,7 @@ namespace VidSphere.Core.Api.Tests.Services.Foundations.VideoMetadatas
 
             invalidVideoMetadataException.AddData(
                 key: nameof(VideoMetadata.Id),
-                values: "Id is required");
+                values: "Id is required.");
 
             var expectedVideoMetadataValidationException = new VideoMetadataValidationException(
                 message: "Video Metadata Validation Exception occured, fix the errors and try again.",
