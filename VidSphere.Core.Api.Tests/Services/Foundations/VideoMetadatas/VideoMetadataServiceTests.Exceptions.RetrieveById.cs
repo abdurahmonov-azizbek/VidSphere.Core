@@ -21,11 +21,11 @@ namespace VidSphere.Core.Api.Tests.Services.Foundations.VideoMetadatas
             SqlException sqlException = GetSqlException();
 
             var failedVideoMetadataStorageException = new FailedVideoMetadataStorageException(
-                message: "Failed video metadata storage error occured, please contact support.",
+                message: "Failed Video Metadata storage error occured, please contact support.",
                 innerException: sqlException);
 
             var expectedVideoMetadataDependencyException = new VideoMetadataDependencyException(
-                message: "Video metadata dependency exception error occured, please contact support.",
+                message: "Video Metadata dependency exception error occured, please contact support.",
                 innerException: failedVideoMetadataStorageException);
 
             this.storageBrokerMock.Setup(broker =>
