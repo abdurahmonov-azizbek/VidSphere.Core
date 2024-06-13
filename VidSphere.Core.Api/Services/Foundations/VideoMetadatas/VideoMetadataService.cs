@@ -38,5 +38,18 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
             {
                 return this.storageBroker.SelectAllVideoMetadatas();
             });
+
+        public ValueTask<VideoMetadata> RetrieveVideoMetadataByIdAsync(Guid videoMetadataId) =>
+            TryCatch(async () =>
+            {
+                ValidateVideoMetadataId(videoMetadataId);
+
+                var maybeVideoMetadata =
+                    await this.storageBroker.SelectVideoMetadataByIdAsync(videoMetadataId);
+
+                ValidateStorageVideoMetadataExists(maybeVideoMetadata, videoMetadataId);
+
+                return maybeVideoMetadata;
+            });
     }
 }

@@ -11,5 +11,6 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
     {
         ValueTask<VideoMetadata> AddVideoMetadataAsync(VideoMetadata videoMetadata);
         IQueryable<VideoMetadata> RetrieveAllVideoMetadatas();
+        ValueTask<VideoMetadata> RetrieveVideoMetadataByIdAsync(Guid videoMetadataId);
     }
 }
