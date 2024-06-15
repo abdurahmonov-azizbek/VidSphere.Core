@@ -32,6 +32,19 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
                 );
         }
 
+        private void ValidateVideoMetadataOnModify(VideoMetadata videoMetadata)
+        {
+            ValidateVideoMetadataNotNull(videoMetadata);
+
+            Validate(
+                (Rule: IsInvalid(videoMetadata.Id), Parameter: nameof(VideoMetadata.Id)),
+                (Rule: IsInvalid(videoMetadata.Title), Parameter: nameof(VideoMetadata.Title)),
+                (Rule: IsInvalid(videoMetadata.BlobPath), Parameter: nameof(VideoMetadata.BlobPath)),
+                (Rule: IsInvalid(videoMetadata.CreatedDate), Parameter: nameof(VideoMetadata.CreatedDate)),
+                (Rule: IsInvalid(videoMetadata.UpdatedDate), Parameter: nameof(VideoMetadata.UpdatedDate))
+                );
+        }
+
         private void ValidateVideoMetadataNotNull(VideoMetadata videoMetadata)
         {
             if (videoMetadata is null)

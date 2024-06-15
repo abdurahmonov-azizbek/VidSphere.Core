@@ -36,7 +36,7 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
         public ValueTask<VideoMetadata> ModifyVideoMetadataAsync(VideoMetadata videoMetadata) =>
             TryCatch(async () =>
             {
-                ValidateVideoMetadataNotNull(videoMetadata);
+                ValidateVideoMetadataOnModify(videoMetadata);
 
                 VideoMetadata maybeVideoMetadata =
                     await this.storageBroker.SelectVideoMetadataByIdAsync(videoMetadata.Id);
