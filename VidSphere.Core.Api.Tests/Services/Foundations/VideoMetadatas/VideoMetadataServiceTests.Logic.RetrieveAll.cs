@@ -1,10 +1,10 @@
-﻿using FluentAssertions;
-using Moq;
-// --------------------------------------------------------
+﻿// --------------------------------------------------------
 // Copyright (c) Coalition of Good-Hearted Engineers
 // Developed by VidSphere Team
 // --------------------------------------------------------
 
+using FluentAssertions;
+using Moq;
 using VidSphere.Core.Api.Models.VideoMetadatas;
 
 namespace VidSphere.Core.Api.Tests.Services.Foundations.VideoMetadatas
