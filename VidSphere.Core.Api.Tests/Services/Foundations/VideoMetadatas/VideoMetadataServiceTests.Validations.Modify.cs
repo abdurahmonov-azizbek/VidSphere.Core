@@ -1,13 +1,13 @@
-﻿using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VidSphere.Core.Api.Models.VideoMetadatas.Exceptions;
-using VidSphere.Core.Api.Models.VideoMetadatas;
+﻿// --------------------------------------------------------
+// Copyright (c) Coalition of Good-Hearted Engineers
+// Developed by VidSphere Team
+// --------------------------------------------------------
+
 using FluentAssertions;
 using Force.DeepCloner;
+using Moq;
+using VidSphere.Core.Api.Models.VideoMetadatas;
+using VidSphere.Core.Api.Models.VideoMetadatas.Exceptions;
 
 namespace VidSphere.Core.Api.Tests.Services.Foundations.VideoMetadatas
 {
