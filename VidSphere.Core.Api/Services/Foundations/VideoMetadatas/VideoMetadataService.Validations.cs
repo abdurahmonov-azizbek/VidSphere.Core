@@ -32,6 +32,40 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
                 );
         }
 
+        private void ValidateVideoMetadataOnModify(VideoMetadata videoMetadata)
+        {
+            ValidateVideoMetadataNotNull(videoMetadata);
+
+            Validate(
+                (Rule: IsInvalid(videoMetadata.Id), Parameter: nameof(VideoMetadata.Id)),
+                (Rule: IsInvalid(videoMetadata.Title), Parameter: nameof(VideoMetadata.Title)),
+                (Rule: IsInvalid(videoMetadata.BlobPath), Parameter: nameof(VideoMetadata.BlobPath)),
+                (Rule: IsInvalid(videoMetadata.CreatedDate), Parameter: nameof(VideoMetadata.CreatedDate)),
+                (Rule: IsInvalid(videoMetadata.UpdatedDate), Parameter: nameof(VideoMetadata.UpdatedDate))
+                );
+        }
+
+        private void ValidateAgainstStorageOnModify(VideoMetadata inputVideoMetadata, VideoMetadata maybeVideoMetadata)
+        {
+            ValidateStorageVideoMetadata(maybeVideoMetadata, inputVideoMetadata.Id);
+
+            Validate(
+                (Rule: IsNotSame(
+                    inputVideoMetadata.CreatedDate,
+                    maybeVideoMetadata.CreatedDate,
+                    nameof(VideoMetadata.CreatedDate)),
+                Parameter: nameof(VideoMetadata.CreatedDate)));
+        }
+
+        private static void ValidateStorageVideoMetadata(VideoMetadata maybeVideoMetadata, Guid videoMetadataId)
+        {
+            if (maybeVideoMetadata is null)
+            {
+                throw new NotFoundVideoMetadataException(
+                    $"Couldn't find video metadata with id {videoMetadataId}");
+            }
+        }
+
         private void ValidateVideoMetadataNotNull(VideoMetadata videoMetadata)
         {
             if (videoMetadata is null)
