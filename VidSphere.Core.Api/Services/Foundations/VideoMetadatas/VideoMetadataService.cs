@@ -33,13 +33,16 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
                 return await this.storageBroker.InsertVideoMetadataAsync(videoMetadata);
             });
 
-        public async ValueTask<VideoMetadata> ModifyVideoMetadataAsync(VideoMetadata videoMetadata)
-        {
-            VideoMetadata maybeVideoMetadata = 
-                await this.storageBroker.SelectVideoMetadataByIdAsync(videoMetadata.Id);
+        public ValueTask<VideoMetadata> ModifyVideoMetadataAsync(VideoMetadata videoMetadata) =>
+            TryCatch(async () =>
+            {
+                ValidateVideoMetadataNotNull(videoMetadata);
 
-            return await this.storageBroker.UpdateVideoMetadataAsync(videoMetadata);
-        }
+                VideoMetadata maybeVideoMetadata =
+                    await this.storageBroker.SelectVideoMetadataByIdAsync(videoMetadata.Id);
+
+                return await this.storageBroker.UpdateVideoMetadataAsync(videoMetadata);
+            });
 
         public IQueryable<VideoMetadata> RetrieveAllVideoMetadatas() =>
             TryCatch(() =>
