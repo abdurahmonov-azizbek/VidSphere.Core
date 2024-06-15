@@ -65,9 +65,12 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
                 return maybeVideoMetadata;
             });
 
-        public ValueTask<VideoMetadata> RemoveVideoMetadataByIdAsync(Guid videoMetadataId)
+        public async ValueTask<VideoMetadata> RemoveVideoMetadataByIdAsync(Guid videoMetadataId)
         {
-            throw new NotImplementedException();
+            VideoMetadata maybeVideoMetadata =
+                await this.storageBroker.SelectVideoMetadataByIdAsync(videoMetadataId);
+
+            return await this.storageBroker.DeleteVideoMetadataAsync(maybeVideoMetadata);
         }
     }
 }
