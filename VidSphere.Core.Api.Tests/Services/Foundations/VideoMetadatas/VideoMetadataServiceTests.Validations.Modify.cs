@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VidSphere.Core.Api.Models.VideoMetadatas.Exceptions;
 using VidSphere.Core.Api.Models.VideoMetadatas;
 using FluentAssertions;
+using Force.DeepCloner;
 
 namespace VidSphere.Core.Api.Tests.Services.Foundations.VideoMetadatas
 {
@@ -151,6 +152,59 @@ namespace VidSphere.Core.Api.Tests.Services.Foundations.VideoMetadatas
             this.loggingBrokerMock.Verify(broker =>
                 broker.LogError(It.Is(SameExceptionAs(expectedVideoMetadataValidationException))),
                     Times.Once);
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.dateTimeBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Fact]
+        public async Task ShouldThrowValidationExceptionOnModifyIfStorageCreatedDateNotSameAsCreatedDateAndLogItAsync()
+        {
+            // given
+            int randomNumber = GetRandomNumber();
+            int randomMinutes = randomNumber;
+            VideoMetadata randomVideoMetadata = CreateRandomVideoMetadata();
+            VideoMetadata invalidVideoMetadata = randomVideoMetadata.DeepClone();
+            VideoMetadata storageVideoMetadata = invalidVideoMetadata.DeepClone();
+            storageVideoMetadata.CreatedDate = storageVideoMetadata.CreatedDate.AddMinutes(randomMinutes);
+
+            var invalidVideoMetadataException =
+                new InvalidVideoMetadataException(
+                    message: "Video Metadata is invalid.");
+
+            invalidVideoMetadataException.AddData(
+                key: nameof(VideoMetadata.CreatedDate),
+                values: $"Date is not same as {nameof(VideoMetadata.CreatedDate)}");
+
+            var expectedVideoMetadataValidationException =
+                new VideoMetadataValidationException(
+                    message: "Video Metadata Validation Exception occured, fix the errors and try again.",
+                    innerException: invalidVideoMetadataException);
+
+            this.storageBrokerMock.Setup(broker =>
+                broker.SelectVideoMetadataByIdAsync(invalidVideoMetadata.Id))
+                    .ReturnsAsync(storageVideoMetadata);
+
+            // when
+            ValueTask<VideoMetadata> modifyVideoMetadataTask =
+                this.videoMetadataService.ModifyVideoMetadataAsync(invalidVideoMetadata);
+
+            VideoMetadataValidationException actualVideoMetadataValidationException =
+                await Assert.ThrowsAsync<VideoMetadataValidationException>(
+                    modifyVideoMetadataTask.AsTask);
+
+            // then
+            actualVideoMetadataValidationException.Should().BeEquivalentTo(
+                expectedVideoMetadataValidationException);
+
+            this.storageBrokerMock.Verify(broker =>
+                broker.SelectVideoMetadataByIdAsync(
+                    invalidVideoMetadata.Id), Times.Once());
+
+            this.loggingBrokerMock.Verify(broker =>
+                broker.LogError(It.Is(SameExceptionAs(
+                    expectedVideoMetadataValidationException))), Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
             this.loggingBrokerMock.VerifyNoOtherCalls();
