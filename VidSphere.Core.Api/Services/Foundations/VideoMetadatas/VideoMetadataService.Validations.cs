@@ -45,6 +45,18 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
                 );
         }
 
+        private void ValidateAgainstStorageOnModify(VideoMetadata inputVideoMetadata, VideoMetadata maybeVideoMetadata)
+        {
+            ValidateStorageVideoMetadata(maybeVideoMetadata, inputVideoMetadata.Id);
+
+            Validate(
+                (Rule: IsNotSame(
+                    inputVideoMetadata.CreatedDate,
+                    maybeVideoMetadata.CreatedDate,
+                    nameof(VideoMetadata.CreatedDate)),
+                Parameter: nameof(VideoMetadata.CreatedDate)));
+        }
+
         private static void ValidateStorageVideoMetadata(VideoMetadata maybeVideoMetadata, Guid videoMetadataId)
         {
             if (maybeVideoMetadata is null)

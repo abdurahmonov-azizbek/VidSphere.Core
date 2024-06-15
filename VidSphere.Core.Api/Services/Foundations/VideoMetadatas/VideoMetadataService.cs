@@ -41,7 +41,7 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
                 VideoMetadata maybeVideoMetadata =
                     await this.storageBroker.SelectVideoMetadataByIdAsync(videoMetadata.Id);
 
-                ValidateStorageVideoMetadata(maybeVideoMetadata, videoMetadata.Id);
+                ValidateAgainstStorageOnModify(videoMetadata, maybeVideoMetadata);
 
                 return await this.storageBroker.UpdateVideoMetadataAsync(videoMetadata);
             });
