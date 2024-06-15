@@ -45,6 +45,15 @@ namespace VidSphere.Core.Api.Services.Foundations.VideoMetadatas
                 );
         }
 
+        private static void ValidateStorageVideoMetadata(VideoMetadata maybeVideoMetadata, Guid videoMetadataId)
+        {
+            if (maybeVideoMetadata is null)
+            {
+                throw new NotFoundVideoMetadataException(
+                    $"Couldn't find video metadata with id {videoMetadataId}");
+            }
+        }
+
         private void ValidateVideoMetadataNotNull(VideoMetadata videoMetadata)
         {
             if (videoMetadata is null)
