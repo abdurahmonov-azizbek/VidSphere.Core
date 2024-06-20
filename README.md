@@ -1,2 +1,2 @@
 # VidSphere.Core
-This is The-Standart Compliment that allows user to watch useful videos
+This is The-Standart Complient that allows users to watch useful videos
