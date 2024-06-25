@@ -4,10 +4,11 @@
 // --------------------------------------------------------
 
 using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 
 namespace VidSphere.Core.Api.Brokers.Blobs
 {
-    public class BlobBroker
+    public partial class BlobBroker : IBlobBroker
     {
         private readonly string blobConnectionString;
         private readonly string videoContainerName;
@@ -33,12 +34,46 @@ namespace VidSphere.Core.Api.Brokers.Blobs
             }
 
             var blobServiceClient = new BlobServiceClient(blobConnectionString);
-            var blobContainerClient = blobServiceClient.GetBlobContainerClient(blobContainerName);
+            var blobContainerClient = blobServiceClient.GetBlobContainerClient(videoContainerName);
             var blobClient = blobContainerClient.GetBlobClient(fileName);
 
             await blobClient.UploadAsync(fileStream, true);
 
             return blobClient.Uri.ToString();
+        }
+
+        public async Task<Stream> GetStreamAsync(string fileName)
+        {
+            var extension = Path.GetExtension(fileName).ToLower();
+            var blobContainerName = GetContainerName(extension);
+
+            if (blobContainerName == null)
+            {
+                throw new InvalidOperationException("Unsupported file type.");
+            }
+
+            var blobServiceClient = new BlobServiceClient(blobConnectionString);
+            var blobContainerClient = blobServiceClient.GetBlobContainerClient(videoContainerName);
+            var blobClient = blobContainerClient.GetBlobClient(fileName);
+
+            var response = await blobClient.DownloadAsync();
+
+            return response.Value.Content;
+        }
+
+        public async Task<IEnumerable<string>> GetAllVideoFilesAsync()
+        {
+            var blobServiceClient = new BlobServiceClient(blobConnectionString);
+            var blobContainerClient = blobServiceClient.GetBlobContainerClient(videoContainerName);
+
+            List<string> videoFiles = new List<string>();
+
+            await foreach (BlobItem blobItem in blobContainerClient.GetBlobsAsync())
+            {
+                videoFiles.Add(blobItem.Name);
+            }
+
+            return videoFiles;
         }
 
         private string GetContainerName(string extension)
